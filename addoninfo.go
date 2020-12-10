@@ -24,4 +24,8 @@ func main() {
 	parser.AddEntry("Author", "Soulsbane")
 	parser.AddEntry("Name", "TocParser")
 	parser.Dump()
+	fmt.Println("HasEntry for Version: ", parser.HasEntry("Version"))
+	fmt.Println("HasEntry for VersionSSSSSSSSS: ", parser.HasEntry("VersionSSSSSSSSS"))
+	fmt.Println(parser.GetEntry("Author"))
+	fmt.Println(parser.GetEntry("AuthorZZZZ"), "<<<")
 }

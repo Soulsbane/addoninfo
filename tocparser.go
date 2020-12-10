@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // TocParser Used for parsing WoW TOC files.
 type TocParser struct {
@@ -18,6 +20,24 @@ func NewTocParser() TocParser {
 // AddEntry Adds a new key/value pair
 func (parser TocParser) AddEntry(key string, value string) {
 	parser.values[key] = value
+}
+
+// HasEntry Check if an entry exists.
+func (parser TocParser) HasEntry(name string) bool {
+	if _, found := parser.values[name]; found {
+		return true
+	}
+
+	return false
+}
+
+// GetEntry Get an entry
+func (parser TocParser) GetEntry(name string) string {
+	if value, found := parser.values[name]; found {
+		return value
+	}
+
+	return ""
 }
 
 // Dump dumps the key/value pairs to stdout

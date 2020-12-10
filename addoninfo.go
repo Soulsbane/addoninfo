@@ -18,4 +18,10 @@ func main() {
 	case args.List != nil:
 		fmt.Printf("List Command:  %s\n", args.List.Command)
 	}
+
+	parser := NewTocParser()
+	parser.AddEntry("Version", "1.0")
+	parser.AddEntry("Author", "Soulsbane")
+	parser.AddEntry("Name", "TocParser")
+	parser.Dump()
 }

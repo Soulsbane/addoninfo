@@ -23,6 +23,6 @@ func (parser *TocParser) AddEntry(key string, value string) {
 // Dump dumps the key/value pairs to stdout
 func (parser *TocParser) Dump() {
 	for key, value := range parser.values {
-		fmt.Printf("%s => %s", key, value)
+		fmt.Printf("%s => %s\n", key, value)
 	}
 }

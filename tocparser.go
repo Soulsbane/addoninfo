@@ -8,20 +8,20 @@ type TocParser struct {
 }
 
 // NewTocParser Creates a new TocParser
-func NewTocParser() *TocParser {
+func NewTocParser() TocParser {
 	var parser TocParser
 
 	parser.values = make(map[string]string)
-	return &parser
+	return parser
 }
 
 // AddEntry Adds a new key/value pair
-func (parser *TocParser) AddEntry(key string, value string) {
+func (parser TocParser) AddEntry(key string, value string) {
 	parser.values[key] = value
 }
 
 // Dump dumps the key/value pairs to stdout
-func (parser *TocParser) Dump() {
+func (parser TocParser) Dump() {
 	for key, value := range parser.values {
 		fmt.Printf("%s => %s\n", key, value)
 	}

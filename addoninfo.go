@@ -19,13 +19,7 @@ func main() {
 		fmt.Printf("List Command:  %s\n", args.List.Command)
 	}
 
-	parser := NewTocParser()
-	parser.AddEntry("Version", "1.0")
-	parser.AddEntry("Author", "Soulsbane")
-	parser.AddEntry("Name", "TocParser")
-	parser.Dump()
-	fmt.Println("HasEntry for Version: ", parser.HasEntry("Version"))
-	fmt.Println("HasEntry for VersionSSSSSSSSS: ", parser.HasEntry("VersionSSSSSSSSS"))
-	fmt.Println(parser.GetEntry("Author"))
-	fmt.Println(parser.GetEntry("AuthorZZZZ"), "<<<")
+	addon := NewAddon()
+	addon.TestParser()
+	fmt.Println("Addons Author: ", addon.GetAuthor())
 }

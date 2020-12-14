@@ -10,6 +10,11 @@ func (collection Collection) Count() int {
 	return len(collection.addons)
 }
 
+// Add Add an Addon to the collection
+func (collection *Collection) Add(addon Addon) {
+	collection.addons = append(collection.addons, addon)
+}
+
 // NewAddons create a new addon instance
 func NewAddons() Collection {
 	var addons Collection

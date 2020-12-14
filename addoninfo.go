@@ -1,7 +1,7 @@
 package main
 
 import (
-	addon "addoninfo/addons"
+	"addoninfo/addons"
 	"fmt"
 
 	"github.com/alexflint/go-arg"
@@ -20,7 +20,7 @@ func main() {
 		fmt.Printf("List Command:  %s\n", args.List.Command)
 	}
 
-	addon := addon.NewAddon()
+	addon := addons.NewAddon()
 	addon.TestParser()
 	fmt.Println("Addons Author: ", addon.GetAuthor())
 }

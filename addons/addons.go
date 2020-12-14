@@ -1,4 +1,4 @@
-package addon
+package addons
 
 // Collection A collection of Addon objects
 type Collection struct {

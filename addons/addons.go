@@ -15,8 +15,8 @@ func (collection *Collection) Add(addon Addon) {
 	collection.addons = append(collection.addons, addon)
 }
 
-// NewAddons create a new addon instance
-func NewAddons() Collection {
+// NewCollection create a new addon instance
+func NewCollection() Collection {
 	var addons Collection
 
 	return addons

@@ -2,6 +2,8 @@ package addons
 
 import (
 	"fmt"
+	"io/ioutil"
+	"strings"
 )
 
 // TocParser Used for parsing WoW TOC files.
@@ -15,6 +17,44 @@ func NewTocParser() TocParser {
 
 	parser.values = make(map[string]string)
 	return parser
+}
+
+// ParseString Parses content into an associative array
+func (parser *TocParser) ParseString(content string) {
+	lines := strings.Split(string(content), "\n")
+
+	for _, line := range lines {
+		line := strings.TrimSpace(line)
+
+		if strings.HasPrefix(line, "##") {
+			line := strings.Trim(line, "#")
+			values := strings.Split(line, ":")
+
+			// Creats a pair from example "Key: Value"
+			if len(values) == 2 {
+				key := strings.Trim(string(values[0]), " ")
+				value := strings.Trim((values[1]), " ")
+
+				parser.values[key] = value
+			}
+			// Line is a comment
+		} else if len(line) == 0 || (strings.HasPrefix(line, "##") && !strings.Contains(line, ":")) {
+			continue
+			// Line is a file. If blank ignore.
+		} else {
+
+		}
+	}
+
+}
+
+// ParseFile Loads a TOC file's contents into a string and calls ParseString
+func (parser TocParser) ParseFile(fileName string) {
+	content, err := ioutil.ReadFile(fileName)
+
+	if err != nil {
+		parser.ParseString(string(content))
+	}
 }
 
 // AddEntry Adds a new key/value pair

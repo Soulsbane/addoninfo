@@ -23,4 +23,12 @@ func main() {
 	addon := addons.NewAddon()
 	addon.TestParser()
 	fmt.Println("Addons Author: ", addon.GetAuthor())
+
+	collection := addons.NewCollection()
+	collection.Add(addon)
+	fmt.Println(collection.Count())
+	parser := addons.NewTocParser()
+	data := "## Author: Paul\n## Description: Does it work\n"
+	parser.ParseString(data)
+	parser.Dump()
 }

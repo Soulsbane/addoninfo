@@ -9,6 +9,7 @@ import (
 // TocParser Used for parsing WoW TOC files.
 type TocParser struct {
 	values map[string]string
+	files  []string
 }
 
 // NewTocParser Creates a new TocParser
@@ -30,7 +31,7 @@ func (parser *TocParser) ParseString(content string) {
 			line := strings.Trim(line, "#")
 			values := strings.Split(line, ":")
 
-			// Creats a pair from example "Key: Value"
+			// Creats a pair from example "Author: Soulsbane"
 			if len(values) == 2 {
 				key := strings.Trim(string(values[0]), " ")
 				value := strings.Trim((values[1]), " ")
@@ -40,9 +41,11 @@ func (parser *TocParser) ParseString(content string) {
 			// Line is a comment
 		} else if len(line) == 0 || (strings.HasPrefix(line, "##") && !strings.Contains(line, ":")) {
 			continue
-			// Line is a file. If blank ignore.
+			// Line is a empty or a filename. If blank ignore.
 		} else {
-
+			if strings.TrimSpace(line) != "" {
+				parser.files = append(parser.files, line)
+			}
 		}
 	}
 

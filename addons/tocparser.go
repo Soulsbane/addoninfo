@@ -83,6 +83,16 @@ func (parser TocParser) GetEntry(name string) string {
 	return ""
 }
 
+// GetAuthor Get the addons author name.
+func (parser TocParser) GetAuthor() string {
+	return parser.GetEntry("Author")
+}
+
+// GetVersion Get the addons version.
+func (parser TocParser) GetVersion() string {
+	return parser.GetEntry("Version")
+}
+
 // Dump dumps the key/value pairs to stdout
 func (parser TocParser) Dump() {
 	for key, value := range parser.values {

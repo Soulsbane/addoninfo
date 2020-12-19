@@ -20,6 +20,26 @@ func (addon Addon) GetAuthor() string {
 	return addon.parser.GetEntry("Author")
 }
 
+// GetVersion Get the addons version.
+func (addon Addon) GetVersion() string {
+	return addon.parser.GetEntry("Version")
+}
+
+// GetTitle Get the addons title.
+func (addon Addon) GetTitle() string {
+	return addon.parser.GetEntry("Title")
+}
+
+// GetNotes Get the addons notes.
+func (addon Addon) GetNotes() string {
+	return addon.parser.GetEntry("Notes")
+}
+
+// GetInterface Get the addons interface version.
+func (addon Addon) GetInterface() string {
+	return addon.parser.GetEntry("Interface")
+}
+
 // TestParser Test the parser.
 func (addon Addon) TestParser() {
 	addon.parser.AddEntry("Version", "1.0")

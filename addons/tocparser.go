@@ -48,7 +48,6 @@ func (parser *TocParser) ParseString(content string) {
 			}
 		}
 	}
-
 }
 
 // ParseFile Loads a TOC file's contents into a string and calls ParseString
@@ -88,4 +87,9 @@ func (parser TocParser) Dump() {
 	for key, value := range parser.values {
 		fmt.Printf("%s => %s\n", key, value)
 	}
+}
+
+// GetFileList Get a list of files reference in the TOC file.
+func (parser TocParser) GetFileList() []string {
+	return parser.files
 }

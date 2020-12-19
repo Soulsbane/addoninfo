@@ -93,6 +93,21 @@ func (parser TocParser) GetVersion() string {
 	return parser.GetEntry("Version")
 }
 
+// GetTitle Get the addons title.
+func (parser TocParser) GetTitle() string {
+	return parser.GetEntry("Title")
+}
+
+// GetNotes Get the addons notes.
+func (parser TocParser) GetNotes() string {
+	return parser.GetEntry("Notes")
+}
+
+// GetInterface Get the addons interface version.
+func (parser TocParser) GetInterface() string {
+	return parser.GetEntry("Interface")
+}
+
 // Dump dumps the key/value pairs to stdout
 func (parser TocParser) Dump() {
 	for key, value := range parser.values {

@@ -1,5 +1,10 @@
 package addons
 
+import (
+	"fmt"
+	"strings"
+)
+
 // Collection A collection of Addon objects
 type Collection struct {
 	addons []Addon
@@ -18,6 +23,17 @@ func (collection Collection) Count() int {
 }
 
 // Add Add an Addon to the collection
-func (collection *Collection) Add(addon Addon) {
+func (collection *Collection) Add(name string, addon Addon) {
 	collection.addons = append(collection.addons, addon)
+}
+
+// GetAddon Get an instance of an addon.
+func (collection Collection) GetAddon(name string) (Addon, error) {
+	for _, addon := range collection.addons {
+		if strings.ToLower(addon.GetTitle()) == strings.ToLower(name) {
+			return addon, nil
+		}
+	}
+
+	return Addon{}, fmt.Errorf("addon name does not exist")
 }

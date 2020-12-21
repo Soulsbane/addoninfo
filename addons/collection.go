@@ -23,7 +23,7 @@ func (collection Collection) Count() int {
 }
 
 // Add Add an Addon to the collection
-func (collection *Collection) Add(name string, addon Addon) {
+func (collection *Collection) Add(addon Addon) {
 	collection.addons = append(collection.addons, addon)
 }
 

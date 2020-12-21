@@ -35,5 +35,5 @@ func (collection Collection) GetAddon(name string) (Addon, error) {
 		}
 	}
 
-	return Addon{}, fmt.Errorf("addon name does not exist")
+	return Addon{}, fmt.Errorf("%s addon could not be found", name)
 }

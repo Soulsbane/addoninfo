@@ -55,6 +55,9 @@ func (parser TocParser) ParseFile(fileName string) {
 	content, err := ioutil.ReadFile(fileName)
 
 	if err != nil {
+		// FIXME: Maybe return the error?
+		fmt.Println(err)
+	} else {
 		parser.ParseString(string(content))
 	}
 }

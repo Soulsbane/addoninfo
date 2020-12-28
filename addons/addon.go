@@ -8,9 +8,11 @@ type Addon struct {
 }
 
 // NewAddon create a new addon instance
-func NewAddon() Addon {
+func NewAddon(tocFileName string) Addon {
 	var addon Addon
+
 	addon.parser = NewTocParser()
+	addon.parser.ParseFile(tocFileName)
 
 	return addon
 }

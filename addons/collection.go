@@ -2,6 +2,8 @@ package addons
 
 import (
 	"fmt"
+	"io/ioutil"
+	"path/filepath"
 	"strings"
 )
 
@@ -15,6 +17,21 @@ func NewCollection() Collection {
 	var addons Collection
 
 	return addons
+}
+
+// Build Creates a list of installed addons found in path
+func (collection *Collection) Build(path string) {
+	files, err := ioutil.ReadDir(path)
+
+	if err != nil {
+	}
+
+	for _, file := range files {
+		if filepath.Ext(file.Name()) == ".toc" {
+			addon := NewAddon(file.Name())
+			collection.Add(addon)
+		}
+	}
 }
 
 // Count Get the number of intstalled addons

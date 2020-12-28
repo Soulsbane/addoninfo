@@ -14,21 +14,12 @@ func main() {
 	}
 
 	arg.MustParse(&args)
+	collection := addons.NewCollection()
+	collection.Build(".")
 
 	switch {
 	case args.List != nil:
 		fmt.Printf("List Command:  %s\n", args.List.Command)
 	}
 
-	addon := addons.NewAddon()
-	addon.TestParser()
-	fmt.Println("Addons Author: ", addon.GetAuthor())
-
-	collection := addons.NewCollection()
-	collection.Add(addon)
-	fmt.Println(collection.Count())
-	parser := addons.NewTocParser()
-	data := "## Author: Paul\n## Description: Does it work\n"
-	parser.ParseString(data)
-	parser.Dump()
 }

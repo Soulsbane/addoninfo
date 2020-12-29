@@ -29,13 +29,12 @@ func (parser *TocParser) ParseString(content string) {
 
 		if strings.HasPrefix(line, "##") {
 			line := strings.Trim(line, "#")
-			values := strings.Split(line, ":")
+			values := strings.SplitN(line, ":", 2)
 
 			// Creats a pair from example "Author: Soulsbane"
 			if len(values) == 2 {
 				key := strings.Trim(string(values[0]), " ")
 				value := strings.Trim((values[1]), " ")
-
 				parser.values[key] = value
 			}
 			// Line is a comment

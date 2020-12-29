@@ -3,6 +3,7 @@ package addons
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 	"strings"
 )
@@ -10,6 +11,15 @@ import (
 // Collection A collection of Addon objects
 type Collection struct {
 	addons []Addon
+}
+
+func fileExists(name string) bool {
+	if _, err := os.Stat(name); err != nil {
+		if os.IsNotExist(err) {
+			return false
+		}
+	}
+	return true
 }
 
 // NewCollection create a new addon instance
@@ -21,15 +31,19 @@ func NewCollection() Collection {
 
 // Build Creates a list of installed addons found in path
 func (collection *Collection) Build(path string) {
-	files, err := ioutil.ReadDir(path)
+	dirs, err := ioutil.ReadDir(path)
 
 	if err != nil {
+		fmt.Println(err)
 	}
 
-	for _, file := range files {
-		if filepath.Ext(file.Name()) == ".toc" {
-			addon := NewAddon(file.Name())
-			collection.Add(addon)
+	for _, dir := range dirs {
+		if dir.IsDir() {
+			tocFileName := filepath.Join(dir.Name(), dir.Name()+".toc")
+			if fileExists(tocFileName) {
+				addon := NewAddon(dir.Name(), tocFileName)
+				collection.Add(addon)
+			}
 		}
 	}
 }
@@ -53,4 +67,12 @@ func (collection Collection) GetAddon(name string) (Addon, error) {
 	}
 
 	return Addon{}, fmt.Errorf("%s addon could not be found", name)
+}
+
+// List Print a formatted list of installed addons.
+func (collection Collection) List(command string) {
+	fmt.Println("Installed Addons:")
+	for _, addon := range collection.addons {
+		fmt.Println(addon.GetTitle())
+	}
 }

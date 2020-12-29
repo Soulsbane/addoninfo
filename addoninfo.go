@@ -20,6 +20,7 @@ func main() {
 	switch {
 	case args.List != nil:
 		fmt.Printf("List Command:  %s\n", args.List.Command)
+		collection.List(args.List.Command)
 	}
 
 }

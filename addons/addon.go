@@ -4,11 +4,12 @@ import "fmt"
 
 // Addon the addon instance
 type Addon struct {
-	parser TocParser
+	parser  TocParser
+	altName string
 }
 
 // NewAddon create a new addon instance
-func NewAddon(tocFileName string) Addon {
+func NewAddon(dirName string, tocFileName string) Addon {
 	var addon Addon
 
 	addon.parser = NewTocParser()
@@ -29,7 +30,13 @@ func (addon Addon) GetVersion() string {
 
 // GetTitle Get the addons title.
 func (addon Addon) GetTitle() string {
-	return addon.parser.GetEntry("Title")
+	name := addon.parser.GetEntry("Title")
+
+	if len(name) == 0 || name == " " {
+		return addon.altName
+	}
+
+	return name
 }
 
 // GetNotes Get the addons notes.

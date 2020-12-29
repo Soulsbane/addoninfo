@@ -1,6 +1,10 @@
 package addons
 
-import "fmt"
+import (
+	"fmt"
+	"regexp"
+	"strings"
+)
 
 // Addon the addon instance
 type Addon struct {
@@ -34,6 +38,18 @@ func (addon Addon) GetTitle() string {
 
 	if len(name) == 0 || name == " " {
 		return addon.altName
+	}
+
+	/*
+		Some addon authors like to colorize the title text. Remove it here
+		Kui |cff9966ffNameplates
+		Kui |cff9966ffNameplates:|r |cffffffffCore|r
+	*/
+	if strings.Contains(name, "|") {
+		re := regexp.MustCompile(`\|c\w{8}`) // Remove |cff9966ff like strings
+		subbed := string(re.ReplaceAll([]byte(name), []byte("")))
+
+		return strings.ReplaceAll(subbed, "|r", "") // Finally remove any |r from the title
 	}
 
 	return name

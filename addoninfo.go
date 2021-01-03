@@ -10,7 +10,7 @@ import (
 func main() {
 	var args struct {
 		List *ListCommand `arg:"subcommand:list"`
-		All  bool         `arg:"-q"`
+		//All  bool         `arg:"-q"`
 	}
 
 	arg.MustParse(&args)

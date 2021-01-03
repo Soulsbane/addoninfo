@@ -9,7 +9,7 @@ import (
 // Addon the addon instance
 type Addon struct {
 	parser  TocParser
-	altName string
+	altName string // If Title TOC field is missing or black just use the directory name it is in
 }
 
 // NewAddon create a new addon instance
@@ -17,6 +17,7 @@ func NewAddon(dirName string, tocFileName string) Addon {
 	var addon Addon
 
 	addon.parser = NewTocParser()
+	addon.altName = dirName
 	addon.parser.ParseFile(tocFileName)
 
 	return addon

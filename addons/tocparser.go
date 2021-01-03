@@ -31,9 +31,9 @@ func (parser *TocParser) ParseString(content string) {
 			line := strings.Trim(line, "#")
 			values := strings.SplitN(line, ":", 2)
 
-			// Creats a pair from example "Author: Soulsbane"
+			// Creates a pair from this example string "## Author: Soulsbane"
 			if len(values) == 2 {
-				key := strings.Trim(string(values[0]), " ")
+				key := strings.Trim(values[0], " ")
 				value := strings.Trim((values[1]), " ")
 				parser.values[key] = value
 			}

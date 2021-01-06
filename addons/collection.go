@@ -40,6 +40,7 @@ func (collection *Collection) Build(path string) {
 	for _, dir := range dirs {
 		if dir.IsDir() {
 			tocFileName := filepath.Join(dir.Name(), dir.Name()+".toc")
+
 			if fileExists(tocFileName) {
 				addon := NewAddon(dir.Name(), tocFileName)
 				collection.Add(addon)
@@ -72,6 +73,7 @@ func (collection Collection) GetAddon(name string) (Addon, error) {
 // List Print a formatted list of installed addons.
 func (collection Collection) List(command string) {
 	fmt.Println("Installed Addons:")
+
 	for _, addon := range collection.addons {
 		fmt.Println(addon.GetTitle())
 	}

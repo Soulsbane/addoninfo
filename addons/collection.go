@@ -22,14 +22,14 @@ func fileExists(name string) bool {
 	return true
 }
 
-// NewCollection create a new addon instance
+// NewCollection create a new collection instance
 func NewCollection() Collection {
 	var addons Collection
 
 	return addons
 }
 
-// Build Creates a list of installed addons found in path
+// Build Creates a list of installed addons
 func (collection *Collection) Build(path string) {
 	dirs, err := ioutil.ReadDir(path)
 

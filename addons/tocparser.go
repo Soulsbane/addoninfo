@@ -38,7 +38,7 @@ func (parser *TocParser) ParseString(content string) {
 				parser.values[key] = value
 			}
 			// Line is a comment
-		} else if len(line) == 0 || (strings.HasPrefix(line, "##") && !strings.Contains(line, ":")) {
+		} else if len(line) == 0 || (strings.HasPrefix(line, "#") && !strings.Contains(line, ":")) {
 			continue
 			// Line is a empty or a filename. If blank ignore.
 		} else {

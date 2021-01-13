@@ -9,7 +9,7 @@ import (
 // Addon the addon instance
 type Addon struct {
 	parser  TocParser
-	altName string // If Title TOC field is missing or black just use the directory name it is in
+	dirName string // If Title TOC field is missing or blank just use the addons directory name
 }
 
 // NewAddon create a new addon instance
@@ -17,7 +17,7 @@ func NewAddon(dirName string, tocFileName string) Addon {
 	var addon Addon
 
 	addon.parser = NewTocParser()
-	addon.altName = dirName
+	addon.dirName = dirName
 	addon.parser.ParseFile(tocFileName)
 
 	return addon
@@ -38,7 +38,7 @@ func (addon Addon) GetTitle() string {
 	name := addon.parser.GetEntry("Title")
 
 	if len(name) == 0 || name == " " {
-		return addon.altName
+		return addon.dirName
 	}
 
 	/*
@@ -54,6 +54,11 @@ func (addon Addon) GetTitle() string {
 	}
 
 	return name
+}
+
+// GetDirName The the name of the directory the addon is stored on.
+func (addon Addon) GetDirName() string {
+	return addon.dirName
 }
 
 // GetNotes Get the addons notes.

@@ -83,14 +83,16 @@ func (collection Collection) List(command string) {
 	table.AddHeaders("Name", "Version", "Outdated")
 
 	for _, addon := range collection.addons {
+		title := addon.GetTitle()
+		version := addon.GetVersion()
 		outdated, yesNo := isAddonOutdated(addon.GetInterface())
 
 		if command == "outdated" {
 			if outdated {
-				table.AddRow(addon.GetTitle(), addon.GetVersion())
+				table.AddRow(title, version)
 			}
 		} else {
-			table.AddRow(addon.GetTitle(), addon.GetVersion(), yesNo)
+			table.AddRow(title, version, yesNo)
 		}
 	}
 

@@ -6,6 +6,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/brettski/go-termtables"
 )
 
 // Collection A collection of Addon objects
@@ -21,6 +23,10 @@ func fileExists(name string) bool {
 	}
 
 	return true
+}
+
+func isAddonOutdated(interfaceVersion string) (bool, string) {
+	return true, "Yes"
 }
 
 // NewCollection create a new collection instance
@@ -73,9 +79,20 @@ func (collection Collection) GetAddon(name string) (Addon, error) {
 
 // List Print a formatted list of installed addons.
 func (collection Collection) List(command string) {
-	fmt.Println("Installed Addons:")
+	table := termtables.CreateTable()
+	table.AddHeaders("Name", "Version", "Outdated")
 
 	for _, addon := range collection.addons {
-		fmt.Println(addon.GetTitle())
+		outdated, yesNo := isAddonOutdated(addon.GetInterface())
+
+		if command == "outdated" {
+			if outdated {
+				table.AddRow(addon.GetTitle(), addon.GetVersion())
+			}
+		} else {
+			table.AddRow(addon.GetTitle(), addon.GetVersion(), yesNo)
+		}
 	}
+
+	fmt.Println(table.Render())
 }

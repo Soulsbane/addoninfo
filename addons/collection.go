@@ -8,11 +8,13 @@ import (
 	"strings"
 
 	"github.com/brettski/go-termtables"
+	"github.com/spf13/cast"
 )
 
 // Collection A collection of Addon objects
 type Collection struct {
-	addons []Addon
+	addons           []Addon
+	currentInterface uint
 }
 
 func fileExists(name string) bool {
@@ -25,15 +27,20 @@ func fileExists(name string) bool {
 	return true
 }
 
-func isAddonOutdated(interfaceVersion string) (bool, string) {
-	return true, "Yes"
-}
-
 // NewCollection create a new collection instance
 func NewCollection() Collection {
 	var addons Collection
+	addons.currentInterface = 90002
 
 	return addons
+}
+
+func (collection *Collection) isAddonOutdated(interfaceVersion string) (bool, string) {
+	if cast.ToUint(interfaceVersion) >= collection.currentInterface {
+		return false, "No"
+	}
+
+	return true, "Yes"
 }
 
 // Build Creates a list of installed addons
@@ -80,19 +87,19 @@ func (collection Collection) GetAddon(name string) (Addon, error) {
 // List Print a formatted list of installed addons.
 func (collection Collection) List(command string) {
 	table := termtables.CreateTable()
-	table.AddHeaders("Name", "Version", "Outdated")
+	table.AddHeaders("Name", "Version", "Outdated", "Interface")
 
 	for _, addon := range collection.addons {
 		title := addon.GetTitle()
 		version := addon.GetVersion()
-		outdated, yesNo := isAddonOutdated(addon.GetInterface())
+		outdated, yesNo := collection.isAddonOutdated(addon.GetInterface())
 
 		if command == "outdated" {
 			if outdated {
-				table.AddRow(title, version)
+				table.AddRow(title, version, yesNo, addon.GetInterface())
 			}
 		} else {
-			table.AddRow(title, version, yesNo)
+			table.AddRow(title, version, yesNo, addon.GetInterface())
 		}
 	}
 

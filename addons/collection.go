@@ -102,6 +102,9 @@ func (collection Collection) List(command string) {
 			table.AddRow(title, version, yesNo, addon.GetInterface())
 		}
 	}
-
-	fmt.Println(table.Render())
+	if len(collection.addons) > 0 {
+		fmt.Println(table.Render())
+	} else {
+		fmt.Println("There are no addons to list!")
+	}
 }

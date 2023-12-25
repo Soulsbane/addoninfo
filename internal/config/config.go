@@ -34,7 +34,7 @@ func getConfigDir() (string, error) {
 		return "", err
 	}
 
-	return path.Join(configDir, "Raijinsoft", "wowsvc"), nil
+	return path.Join(configDir, "Raijinsoft", "addoninfo"), nil
 }
 
 func getConfigFileName() (string, error) {

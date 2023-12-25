@@ -2,25 +2,19 @@ package main
 
 import (
 	"addoninfo/addons"
-	"fmt"
-
 	"github.com/alexflint/go-arg"
 )
 
 func main() {
-	var args struct {
-		List *ListCommand `arg:"subcommand:list"`
-		//All  bool         `arg:"-q"`
-	}
+	var cmd commands
 
-	arg.MustParse(&args)
+	arg.MustParse(&cmd)
 	collection := addons.NewCollection()
 	collection.Build(".")
 
 	switch {
-	case args.List != nil:
-		fmt.Printf("List Command:  %s\n", args.List.Command)
-		collection.List(args.List.Command)
+	case cmd.List != nil:
+		collection.List(cmd.List.Type)
 	}
 
 }

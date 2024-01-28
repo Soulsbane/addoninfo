@@ -62,7 +62,7 @@ func (addon Addon) GetTitle() string {
 	return name
 }
 
-// GetDirName The the name of the directory the addon is stored on.
+// GetDirName The name of the directory the addon is stored on.
 func (addon Addon) GetDirName() string {
 	return addon.dirName
 }

@@ -2,13 +2,15 @@ package addons
 
 import (
 	"fmt"
+	"github.com/Soulsbane/tocparser/tocparser"
+	"os"
 	"regexp"
 	"strings"
 )
 
 // Addon the addon instance
 type Addon struct {
-	parser  TocParser
+	parser  tocparser.Parser
 	dirName string // If Title TOC field is missing or blank just use the addons directory name
 }
 
@@ -16,9 +18,13 @@ type Addon struct {
 func NewAddon(dirName string, tocFileName string) Addon {
 	var addon Addon
 
-	addon.parser = NewTocParser()
+	addon.parser = tocparser.New()
 	addon.dirName = dirName
-	addon.parser.ParseFile(tocFileName)
+	err := addon.parser.LoadFile(tocFileName)
+
+	if err != nil {
+		fmt.Println("Error loading TOC file: ", err)
+	}
 
 	return addon
 }
@@ -76,7 +82,7 @@ func (addon Addon) TestParser() {
 	addon.parser.AddEntry("Version", "1.0")
 	addon.parser.AddEntry("Author", "Soulsbane")
 	addon.parser.AddEntry("Name", "TocParser")
-	addon.parser.Dump()
+	addon.parser.DumpEntries(os.Stdout)
 	fmt.Println("HasEntry for Version: ", addon.parser.HasEntry("Version"))
 	fmt.Println("HasEntry for VersionSSSSSSSSS: ", addon.parser.HasEntry("VersionSSSSSSSSS"))
 	fmt.Println(addon.parser.GetEntry("Author"))

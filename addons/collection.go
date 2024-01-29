@@ -62,12 +62,12 @@ func (collection *Collection) Build(path string) {
 	}
 }
 
-// Count Get the number of intstalled addons
+// Count Get the number of installed addons
 func (collection *Collection) Count() int {
 	return len(collection.addons)
 }
 
-// Add Add an Addon to the collection
+// Add adds an Addon to the collection
 func (collection *Collection) Add(addon Addon) {
 	collection.addons = append(collection.addons, addon)
 }

@@ -2,7 +2,6 @@ package addons
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -45,7 +44,7 @@ func (collection *Collection) isAddonOutdated(interfaceVersion string) (bool, st
 
 // Build Creates a list of installed addons
 func (collection *Collection) Build(path string) {
-	dirs, err := ioutil.ReadDir(path)
+	dirs, err := os.ReadDir(path)
 
 	if err != nil {
 		fmt.Println(err)

@@ -63,7 +63,7 @@ func (collection *Collection) Build(path string) {
 }
 
 // Count Get the number of intstalled addons
-func (collection Collection) Count() int {
+func (collection *Collection) Count() int {
 	return len(collection.addons)
 }
 
@@ -73,7 +73,7 @@ func (collection *Collection) Add(addon Addon) {
 }
 
 // GetAddon Get an instance of an addon.
-func (collection Collection) GetAddon(name string) (Addon, error) {
+func (collection *Collection) GetAddon(name string) (Addon, error) {
 	for _, addon := range collection.addons {
 		if strings.ToLower(addon.GetTitle()) == strings.ToLower(name) {
 			return addon, nil
@@ -84,7 +84,7 @@ func (collection Collection) GetAddon(name string) (Addon, error) {
 }
 
 // List Print a formatted list of installed addons.
-func (collection Collection) List(command string) {
+func (collection *Collection) List(command string) {
 	table := termtables.CreateTable()
 	table.AddHeaders("Name", "Version", "Outdated", "Interface")
 

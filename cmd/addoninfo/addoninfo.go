@@ -6,26 +6,10 @@ import (
 	"errors"
 	"fmt"
 	"github.com/alexflint/go-arg"
-	"github.com/erikgeiser/promptkit/confirmation"
 	"github.com/ncruces/zenity"
 )
 
 var configFile = config.New()
-
-func promptToAddPath() {
-	input := confirmation.New("No paths configured. Add a new path now?", confirmation.Yes)
-	yesNo, err := input.RunPrompt()
-
-	if err != nil {
-		fmt.Printf("Error: %v\n", err)
-	} else {
-		if yesNo {
-			handleAddPathCommand()
-		} else {
-			fmt.Println("A new path can be added with the 'add-path' command.")
-		}
-	}
-}
 
 func handleAddPathCommand() {
 	path, err := zenity.SelectFile(zenity.Filename(""), zenity.Directory())

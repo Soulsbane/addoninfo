@@ -15,16 +15,20 @@ type Config struct {
 	installPaths InstallPaths
 }
 
-func New() *Config {
+func New() (*Config, error) {
 	configDir, err := getConfigDir()
 
 	if err != nil {
-		fmt.Println("Failed to create config directory: ", err)
+		return &Config{}, fmt.Errorf("Failed to get config directory path: %w", err)
 	}
 
-	os.MkdirAll(configDir, 0755)
+	err = os.MkdirAll(configDir, 0755)
 
-	return &Config{}
+	if err != nil {
+		return &Config{}, fmt.Errorf("Failed to create config directory path: %w", err)
+	}
+
+	return &Config{}, nil
 }
 
 func getConfigDir() (string, error) {

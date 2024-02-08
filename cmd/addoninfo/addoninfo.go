@@ -9,9 +9,13 @@ import (
 	"github.com/ncruces/zenity"
 )
 
-var configFile = config.New()
-
 func handleAddPathCommand() {
+	configFile, err := config.New()
+
+	if err != nil {
+		fmt.Println("Error creating config file: ", err)
+	}
+
 	path, err := zenity.SelectFile(zenity.Filename(""), zenity.Directory())
 
 	if err != nil {
@@ -45,5 +49,4 @@ func main() {
 	case cmd.AddPath != nil:
 		handleAddPathCommand()
 	}
-
 }
